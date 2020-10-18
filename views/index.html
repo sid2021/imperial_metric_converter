@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Imperial-Metric Unit Converter API</title>
+    <link rel="stylesheet" a href="../public/style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Imperial-Metric Unit Converter API</h1>
+      <p>
+        This project is based on
+        <a
+          href="https://www.freecodecamp.org/learn/quality-assurance/quality-assurance-projects/metric-imperial-converter"
+        >
+          Freecodecamp's Quality Assurance certification.</a
+        >. It is an API which allows to get unit conversion between imperial and
+        metric systems in a JSON format. Additionally, it is possible to use the
+        frontend interface to conveniently generate conversions.
+      </p>
+      <h3>Example usage:</h3>
+      <code>/api/convert?input=4gal</code><br />
+      <code>/api/convert?input=1/2km</code><br />
+      <code>/api/convert?input=5.4/3lbs</code><br />
+      <code>/api/convert?input=kg</code><br />
+      <h3>Example return:</h3>
+      <code
+        >{initNum: 3.1, initUnit: 'mi', returnNum: 5.0000008, returnUnit: 'km',
+        string: '3.1 miles converts to 5.00002 kilometers'}</code
+      >
+      <h2>Front-End:</h2>
+      <div id="testui">
+        <form id="convertForm" class="border">
+          <input
+            type="text"
+            id="convertField"
+            name="input"
+            placeholder="3.1kg"
+          />
+          <input id="convert" type="submit" value="Convert!" />
+        </form>
+        <!-- <p id="result"></p> -->
+        <code id="jsonResult"
+          >Example usage: 1.5 kg, 1/2lbs, 3gal. Accepted units: gal, l, lbs, kg,
+          mi, km.
+        </code>
+      </div>
+
+      <footer>
+        Created by <a href="https://github.com/sid2021">sid2021</a>
+      </footer>
+    </div>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-2.2.1.min.js"
+    integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    $(function () {
+      $("#convertForm").submit(function (event) {
+        event.preventDefault();
+        $.ajax({
+          url: "/api/convert",
+          type: "get",
+          data: $("#convertForm").serialize(),
+          success: function (data) {
+            /* $("#result").text(data.string || data); */
+            $("#jsonResult").text(JSON.stringify(data));
+          },
+        });
+      });
+    });
+  </script>
+</html>
